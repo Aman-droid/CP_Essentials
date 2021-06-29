@@ -96,4 +96,32 @@ if (!used[u]) {
     for (int v : path)
         cout << v << " ";
 }
+//
+
+01 BFS ******  O(E)
+
+ We can simply use a normal queue, and append new vertices at the beginning if the corresponding edge has weight 00, 
+ i.e. if d[u]=d[v]d[u]=d[v], or at the end if the edge has weight 11, i.e. if d[u]=d[v]+1d[u]=d[v]+1. 
+ This way the queue still remains sorted at all time.
+ 
+vector<int> d(n, INF);
+d[s] = 0;
+deque<int> q;
+q.push_front(s);
+while (!q.empty()) {
+    int v = q.front();
+    q.pop_front();
+    for (auto edge : adj[v]) {
+        int u = edge.first;
+        int w = edge.second;
+        if (d[v] + w < d[u]) {
+            d[u] = d[v] + w;
+            if (w == 1)
+                q.push_back(u);
+            else
+                q.push_front(u);
+        }
+    }
+}
+
 */
