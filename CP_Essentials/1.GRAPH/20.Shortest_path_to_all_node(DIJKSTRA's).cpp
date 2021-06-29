@@ -111,3 +111,26 @@ int main()
 
     return 0;
 }
+
+---------------------------------------------------------------------------------------------------------------------
+//pririty queue 
+void dijikstra(vector<int>&d,vector<vector<pair<int,int>>>&adj,int start)
+{
+    priority_queue<pair<int,int>, vector<pair<int,int>>,greater<pair<int,int>> > pq;
+    pq.push({0,start});
+    d[start]=0;
+    while(!pq.empty())
+    {   
+        int cur=pq.top().second;
+        pq.pop();
+    
+        for(auto it:adj[cur])
+        {
+            if(d[it.first] > d[cur]+it.second){
+                d[it.first] = d[cur]+it.second;
+                
+                pq.push({d[it.first] , it.first});
+            }
+        }
+    }
+}
